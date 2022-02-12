@@ -186,14 +186,14 @@ class Game extends React.Component {
   }
 
   moveKeyboardCursor(wordIndex, letterIndex) {
-    newState = this.state;
+    let newState = this.state;
     newState.currentLetterPos.row = wordIndex;
     newState.currentLetterPos.col = letterIndex;
     this.setState(newState);
   }
 
   changeCurrentLetter(letter) {
-    newState = this.state;
+    let newState = this.state;
     newState.guesses[this.state.currentLetterPos.row].word[this.state.currentLetterPos.col] = letter;
     this.setState(newState)
   }
