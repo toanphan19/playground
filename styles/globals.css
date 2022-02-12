@@ -1,16 +1,99 @@
-html,
-body {
+.container {
+  max-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+}
+
+main {
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-container {
+  display: flex;
+  /* height: 100%; */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.game-color-correct {
+  color: white;
+  background-color: #6aaa64;
+}
+.game-color-incorrect {
+  color: white;
+  background-color: #c9b458;
+}
+.game-color-not-in-word {
+  color: white;
+  background-color: #86888a;
 }
 
-* {
-  box-sizing: border-box;
+/* Game Board */
+.game-tile {
+  font-size: 1.6rem;
+  font-weight: bold;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 0.1rem;
+  background-color: white;
+  border: 2px solid lightgray;
+  text-transform: uppercase;
+}
+
+
+
+/* Game Keyboard */
+.keyboard {
+  /* min-width: 500px; */
+  width: 500px;
+  max-width: 100vw;
+  margin-top: 12px;
+}
+
+.keyboard-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  /* margin: 0.1rem; */
+  margin-bottom: 6px;
+}
+
+.keyboard-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex: 1;  */
+
+  font-size: 1rem;
+  font-weight: bold;
+  height: 3rem;
+  min-width: 9%;
+  margin-right: 3px;
+  padding: 1px;
+  background-color: #eeeeee;
+  border: 2px solid lightgray;
+  border-radius: 5px;
+}
+
+.keyboard-button-three-halves {
+  font-size: 0.7rem;
+  display: flex;
+  /* flex: 1.5; */
+  width: 13.5%;
 }
