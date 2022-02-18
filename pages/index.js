@@ -5,20 +5,17 @@ export default function Home() {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Toan's Playground</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          Read{' '}
-          <Link href="/wordle">
-            <a>wordle</a>
-          </Link>
+          Hi!
         </h1>
 
         <p className="description">
-          Get started by editing <code>pages/index.js</code>
+          Welcome to my little playground. Please have feel free to look around.
         </p>
 
         <div className="grid">
@@ -27,21 +24,21 @@ export default function Home() {
             <p>Want to get those 3/6 on the trending game Wordle?</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="" className="card">
+            <h3>TBD?? &rarr;</h3>
+            <p></p>
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
+            href=""
             className="card"
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+          <h3>TBD?? &rarr;</h3>
+          <p></p>
           </a>
 
           <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href=""
             className="card"
           >
             <h3>Deploy &rarr;</h3>
