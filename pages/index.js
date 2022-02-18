@@ -29,22 +29,14 @@ export default function Home() {
             <p></p>
           </a>
 
-          <a
-            href=""
-            className="card"
-          >
-          <h3>TBD?? &rarr;</h3>
-          <p></p>
+          <a href="" className="card">
+            <h3>TBD?? &rarr;</h3>
+            <p></p>
           </a>
 
-          <a
-            href=""
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+          <a href="" className="card">
+            <h3>TBD?? &rarr;</h3>
+            <p></p>
           </a>
         </div>
       </main>
