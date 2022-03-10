@@ -22,25 +22,25 @@ class Tile extends React.Component {
   render() {
     return (
       <button
-        className={"game-tile " + this.hintClass(this.props.hint)}
-        onClick={this.changeHint}
+        className={"game-tile " + this.getHintClass(this.props.hint)}
+        onClick={this.props.onClick}
       >
         {this.props.letter}
       </button >
     );
   }
 
-  hintClass(hint) {
+  getHintClass(hint) {
     let hintClass;
     switch (hint) {
       case hintEnum.CORRECT:
-        hintClass = "game-tile-correct";
+        hintClass = "game-color-correct";
         break;
       case hintEnum.INCORRECT:
-        hintClass = "game-tile-incorrect";
+        hintClass = "game-color-incorrect";
         break;
       case hintEnum.NOT_IN_WORD:
-        hintClass = "game-tile-not-in-word";
+        hintClass = "game-color-not-in-word";
         break;
       default:
         hintClass = "";
@@ -48,31 +48,6 @@ class Tile extends React.Component {
     }
     return hintClass;
   }
-
-  // changeHint() {
-  //   let state = this.state
-  //   switch (state.hint) {
-  //     case hintEnum.CORRECT:
-  //       state.hint = hintEnum.INCORRECT;
-  //       state.hintClass = "game-tile-incorrect";
-  //       break;
-  //     case hintEnum.INCORRECT:
-  //       state.hint = hintEnum.NOT_IN_WORD;
-  //       state.hintClass = "game-tile-not-in-word";
-  //       break;
-  //     case hintEnum.NOT_IN_WORD:
-  //       state.hint = null;
-  //       state.hintClass = "";
-  //       break;
-  //     default:
-  //       state.hint = hintEnum.CORRECT;
-  //       state.hintClass = "game-tile-correct";
-  //       break;
-  //   }
-  //   this.setState(state)
-  // }
-
-
 }
 
 class Row extends React.Component {
@@ -97,6 +72,7 @@ class Row extends React.Component {
       <Tile
         letter={this.props.word[i]}
         hint={this.props.hints[i]}
+        onClick={() => this.props.onTileClick(i)}
       />
     );
   }
@@ -116,10 +92,11 @@ class Board extends React.Component {
     );
   }
 
-  renderRow(i) {
+  renderRow(row_i) {
     return <Row
-      word={this.props.guesses[i].word}
-      hints={this.props.guesses[i].hints}
+      word={this.props.guesses[row_i].word}
+      hints={this.props.guesses[row_i].hints}
+      onTileClick={(col_i) => this.props.onTileClick(row_i, col_i)}
     />
   }
 }
@@ -130,13 +107,13 @@ class Game extends React.Component {
     this.state = {
       guesses: Array(6).fill().map(() => {
         return {
-          word: Array(5).fill(" "),
+          word: Array(5).fill(null),
           hints: Array(5).fill(null)
         };
       }),
       currentLetterPos: {
         row: 0,
-        col: -1,
+        col: 0,
       }
     }
   }
@@ -146,6 +123,7 @@ class Game extends React.Component {
       <div className="game-container">
         <Board
           guesses={this.state.guesses}
+          onTileClick={(row, col) => this.handleTileClick(row, col)}
         />
         <Guess />
         <Keyboard
@@ -155,46 +133,94 @@ class Game extends React.Component {
     );
   }
 
+  handleTileClick(row, col) {
+    console.log(this.state);
+    console.log(row, col)
+
+    let newState = this.state;
+    let currentHint = newState.guesses[row].hints[col];
+    let newHint = changeHint(currentHint);
+    newState.guesses[row].hints[col] = newHint;
+    this.setState(newState);
+
+    console.log("New state guesses:", newState.guesses)
+  }
+
   onClickKeyboardButton(key) {
     console.log(key);
     console.log(this.state);
     switch (key) {
       case "ENTER":
-        if (this.state.currentLetterPos.col != 4) {
+        if (this.state.currentLetterPos.col < 4) {
           break;
         }
-
         // TODO: Make a guess?
-        this.moveKeyboardCursor(this.state.currentLetterPos.row + 1, -1)
+        this.moveKeyboardCursorForward();
         break;
       case "DEL":
-        if (this.state.currentLetterPos.col < 0) {
-          break;
-        }
-        this.changeCurrentLetter(null)
-        this.moveKeyboardCursor(this.state.currentLetterPos.row, this.state.currentLetterPos.col - 1)
+        this.moveKeyboardCursorBack();
+        this.changeCurrentLetter(null);
+        this.changeCurrentHint(null);
         break;
       default:  // a letter from A-Z
-        if (this.state.currentLetterPos.col >= 4) {
+        if (this.state.currentLetterPos.col > 4) {
           break;
         }
 
-        this.moveKeyboardCursor(this.state.currentLetterPos.row, this.state.currentLetterPos.col + 1);
         this.changeCurrentLetter(key);
+        this.changeCurrentHint(hintEnum.NOT_IN_WORD);
+        this.moveKeyboardCursor(this.state.currentLetterPos.row, this.state.currentLetterPos.col + 1);
         break;
     }
   }
 
-  moveKeyboardCursor(wordIndex, letterIndex) {
+  moveKeyboardCursorForward() {
+    if (this.isLastTile(this.state.currentLetterPos.row, this.state.currentLetterPos.col)) {
+      return;
+    }
+    if (this.state.currentLetterPos.col >= 4) {
+      this.moveKeyboardCursor(this.state.currentLetterPos.row + 1, 0);
+    } else {
+      this.moveKeyboardCursor(this.state.currentLetterPos.row,
+        this.state.currentLetterPos.col + 1);
+    }
+  }
+
+  isLastTile(row, col) {
+    return row == 5 && col == 4;
+  }
+
+  moveKeyboardCursor(row, col) {
     let newState = this.state;
-    newState.currentLetterPos.row = wordIndex;
-    newState.currentLetterPos.col = letterIndex;
+    newState.currentLetterPos.row = row;
+    newState.currentLetterPos.col = col;
     this.setState(newState);
+  }
+
+  moveKeyboardCursorBack() {
+    if (this.isFirstTile(this.state.currentLetterPos.row, this.state.currentLetterPos.col)) {
+      return;
+    }
+    if (this.state.currentLetterPos.col == 0) {
+      this.moveKeyboardCursor(this.state.currentLetterPos.row - 1, 4);
+    } else {
+      this.moveKeyboardCursor(this.state.currentLetterPos.row, this.state.currentLetterPos.col - 1);
+    }
+  }
+
+  isFirstTile(row, col) {
+    return row == 0 && col == 0;
   }
 
   changeCurrentLetter(letter) {
     let newState = this.state;
     newState.guesses[this.state.currentLetterPos.row].word[this.state.currentLetterPos.col] = letter;
+    this.setState(newState)
+  }
+
+  changeCurrentHint(hintClass) {
+    let newState = this.state;
+    newState.guesses[this.state.currentLetterPos.row].hints[this.state.currentLetterPos.col] = hintClass;
     this.setState(newState)
   }
 }
@@ -262,5 +288,23 @@ class KeyboardButton extends React.Component {
     >
       {this.props.value}
     </button>
+  }
+}
+
+
+function changeHint(hint) {
+  switch (hint) {
+    case hintEnum.CORRECT:
+      return hintEnum.INCORRECT
+      break;
+    case hintEnum.INCORRECT:
+      return hintEnum.NOT_IN_WORD;
+      break;
+    case hintEnum.NOT_IN_WORD:
+      return hintEnum.CORRECT;
+      break;
+    default:
+      return hintEnum.NOT_IN_WORD;
+      break;
   }
 }
