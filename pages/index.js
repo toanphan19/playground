@@ -15,7 +15,7 @@ export default function Home() {
         </h1>
 
         <p className="description">
-          Welcome to my little playground. Please have feel free to look around.
+          Welcome to my little playground. Please feel free to look around.
         </p>
 
         <div className="grid">
