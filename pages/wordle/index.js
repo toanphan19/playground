@@ -1,6 +1,6 @@
 import React from "react";
 
-import { hintEnum } from "./common";
+// import { hintEnum } from "./common";
 import Board from "./gameboard";
 import Keyboard from "./gamekeyboard";
 import Guesser from "./guesser";
@@ -15,6 +15,11 @@ export default function Wordle() {
   );
 }
 
+const hintEnum = {
+  CORRECT: "C",
+  INCORRECT: "I",
+  NOT_IN_WORD: "N"
+}
 
 class Game extends React.Component {
   constructor(props) {
