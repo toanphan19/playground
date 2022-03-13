@@ -1,9 +1,9 @@
 import React from "react";
 
-// import { hintEnum } from "./common";
-import Board from "./gameboard";
-import Keyboard from "./gamekeyboard";
-import Guesser from "./guesser";
+import { hintEnum } from "../../components/wordle/common";
+import Board from "../../components/wordle/gameboard";
+import Keyboard from "../../components/wordle/gamekeyboard";
+import Guesser from "../../components/wordle/guesser";
 
 export default function Wordle() {
   return (
@@ -13,12 +13,6 @@ export default function Wordle() {
       <Game />
     </div>
   );
-}
-
-const hintEnum = {
-  CORRECT: "C",
-  INCORRECT: "I",
-  NOT_IN_WORD: "N"
 }
 
 class Game extends React.Component {

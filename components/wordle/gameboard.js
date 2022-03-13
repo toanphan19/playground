@@ -1,10 +1,5 @@
 import React from "react";
-// import { hintEnum } from "./common";
-const hintEnum = {
-  CORRECT: "C",
-  INCORRECT: "I",
-  NOT_IN_WORD: "N"
-}
+import { hintEnum } from "./common";
 
 export default class Board extends React.Component {
   render() {

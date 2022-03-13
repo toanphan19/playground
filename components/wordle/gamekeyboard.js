@@ -1,5 +1,5 @@
 import React from "react";
-// import { hintEnum } from "./common";
+import { hintEnum } from "./common";
 
 export default class Keyboard extends React.Component {
   render() {
