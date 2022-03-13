@@ -55,21 +55,3 @@ class KeyboardButton extends React.Component {
     </button>
   }
 }
-
-
-function changeHint(hint) {
-  switch (hint) {
-    case hintEnum.CORRECT:
-      return hintEnum.INCORRECT
-      break;
-    case hintEnum.INCORRECT:
-      return hintEnum.NOT_IN_WORD;
-      break;
-    case hintEnum.NOT_IN_WORD:
-      return hintEnum.CORRECT;
-      break;
-    default:
-      return hintEnum.NOT_IN_WORD;
-      break;
-  }
-}

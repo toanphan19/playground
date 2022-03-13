@@ -29,7 +29,8 @@ class Game extends React.Component {
       currentLetterPos: {
         row: 0,
         col: 0,
-      }
+      },
+      nextBestGuesses: ["crane"],
     }
   }
 
@@ -42,7 +43,13 @@ class Game extends React.Component {
           guesses={this.state.guesses}
           onTileClick={(row, col) => this.handleTileClick(row, col)}
         />
-        <Guesser />
+        <Guesser
+          nextBestGuesses={this.state.nextBestGuesses}
+        />
+        <button
+          type="button"
+          onClick={() => this.handleNewGuessClick()}
+        >  Find next best Guesses</button>
         <Keyboard
           onClickKeyboardButton={(key) => this.onClickKeyboardButton(key)}
         />
@@ -82,7 +89,16 @@ class Game extends React.Component {
     console.log("New state guesses:", newState.guesses)
   }
 
+  async handleNewGuessClick() {
+    let possibleWordles = await getPossibleWordles(this.state.guesses);
+    console.log(possibleWordles);
+    this.setState({
+      nextBestGuesses: possibleWordles.slice(0, 5),
+    });
+  }
+
   onClickKeyboardButton(key) {
+    key = key.toUpperCase();
     console.log(key);
     console.log(this.state);
     switch (key) {
@@ -161,3 +177,52 @@ class Game extends React.Component {
   }
 }
 
+
+function changeHint(hint) {
+  switch (hint) {
+    case hintEnum.NOT_IN_WORD:
+      return hintEnum.INCORRECT;
+    case hintEnum.INCORRECT:
+      return hintEnum.CORRECT;
+    case hintEnum.CORRECT:
+      return hintEnum.NOT_IN_WORD
+    default:
+      return hintEnum.NOT_IN_WORD;
+  }
+}
+
+
+function getPossibleWordles(guesses) {
+  console.log("Guesses", guesses);
+
+  // Remove not-inputted guesses:
+
+  let requestBody = {
+    guesses: guesses.map(guess => {
+      return {
+        word: guess.word.join(""),
+        hints: guess.hints.join(""),
+      };
+    })
+      .filter(guess => guess.word.length === 5)
+  }
+
+  let possibleWordles = fetch("https://api.playground.toanphan.dev/wordle/solver", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log("ResponseBody:", data);
+      let possibleWordleWithScores = data.possible_wordles;
+      let possibleWordles = possibleWordleWithScores.map(x => x.word);
+      return possibleWordles;
+    }).catch(err => {
+      console.error("Error: ", err);
+    });
+
+  return possibleWordles;
+}
