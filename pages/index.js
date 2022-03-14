@@ -19,10 +19,12 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          <a href="https://playground.toanphan.dev/wordle" className="card">
-            <h3>Wordle Solver &rarr;</h3>
-            <p>Want to get those 3/6 on the trending game Wordle?</p>
-          </a>
+          <Link href="/wordle" passHref>
+            <a className="card">
+              <h3>Wordle Solver &rarr;</h3>
+              <p>Want to get those 3/6 on the trending game Wordle?</p>
+            </a>
+          </Link>
 
           <a href="" className="card">
             <h3>TBD?? &rarr;</h3>
