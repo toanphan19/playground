@@ -11,12 +11,12 @@ export default function Home() {
 
       <main>
         <h1 className="title">
-          Hi!
+          Welcome!
         </h1>
 
-        <p className="description">
+        {/* <p className="description">
           Welcome to my little playground. Please feel free to look around.
-        </p>
+        </p> */}
 
         <div className="grid">
           <Link href="/wordle" passHref>

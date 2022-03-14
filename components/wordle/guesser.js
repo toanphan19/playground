@@ -3,9 +3,20 @@ import React from "react";
 export default class Guess extends React.Component {
   render() {
     return (
-      <div>
-        <span>Best guess: </span> {this.props.nextBestGuesses.join(", ")}
-      </div>
+      <div className="game-guesser-container"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        <span >Best guesses: {this.props.nextBestGuesses.join(", ")}</span>
+        &nbsp;
+        <button
+          type="button"
+          onClick={this.props.onButtonClick}
+          className="material-icons-outlined"
+        >
+          <span className="material-icons" >autorenew</span>
+        </button>
+
+      </div >
     );
   }
 

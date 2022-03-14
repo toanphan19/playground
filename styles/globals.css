@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Hubballi&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 .container {
   max-height: 100vh;
   padding: 0 0.5rem;
@@ -6,8 +9,8 @@
   justify-content: flex-start;
   align-items: center;
 
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+  font-family: 'Hubballi', 'Courier New', Courier, monospace;
+  font-size: 24px;
 }
 
 main {
@@ -19,9 +22,6 @@ main {
   align-items: center;
 }
 
-.game-row {
-  display: flex;
-}
 
 .game-container {
   display: flex;
@@ -46,17 +46,25 @@ main {
 }
 
 /* Game Board */
+.game-row {
+  display: flex;
+}
+
 .game-tile {
   font-size: 1.6rem;
   font-weight: bold;
-  width: 2.8rem;
-  height: 2.8rem;
-  margin: 0.1rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 3px;
   background-color: white;
   border: 2px solid lightgray;
   text-transform: uppercase;
 }
 
+/* Game Guesser */
+.game-guesser-container {
+  margin: 16px;
+}
 
 
 /* Game Keyboard */
@@ -86,7 +94,7 @@ main {
 
   font-size: 1rem;
   font-weight: bold;
-  height: 3rem;
+  height: 3.2rem;
   min-width: 9%;
   margin-right: 3px;
   padding: 1px;

@@ -8,10 +8,9 @@ import Guesser from "../../components/wordle/guesser";
 export default function Wordle() {
   return (
     <div className="container">
-
-      <h1>Wordle Solver</h1>
+      <h1 style={{ marginTop: 16, marginBottom: 32 }}>Wordle Solver</h1>
       <Game />
-    </div>
+    </div >
   );
 }
 
@@ -44,11 +43,8 @@ class Game extends React.Component {
         />
         <Guesser
           nextBestGuesses={this.state.nextBestGuesses}
+          onButtonClick={() => this.handleNewGuessClick()}
         />
-        <button
-          type="button"
-          onClick={() => this.handleNewGuessClick()}
-        >  Find next best Guesses</button>
         <Keyboard
           onClickKeyboardButton={(key) => this.onClickKeyboardButton(key)}
         />
