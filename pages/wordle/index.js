@@ -202,7 +202,8 @@ function getPossibleWordles(guesses) {
       .filter(guess => guess.word.length === 5)
   }
 
-  let possibleWordles = fetch("https://api.playground.toanphan.dev/wordle/solver", {
+  let url = process.env.NEXT_PUBLIC_PLAYGROUND_API_BASE_URL + "/wordle/solver";
+  let possibleWordles = fetch(url, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
