@@ -97,12 +97,11 @@ class Game extends React.Component {
     console.log(key);
     console.log(this.state);
     switch (key) {
-      case "ENTER":
-        if (this.state.currentLetterPos.col <= 4) {
-          break;
-        }
-        // TODO: Make a guess?
-        this.moveKeyboardCursorForward();
+      case "ENTER": // (deprecated)
+        // if (this.state.currentLetterPos.col <= 4) {
+        //   break;
+        // }
+        // this.moveKeyboardCursorForward();
         break;
       case "DEL":
         this.moveKeyboardCursorBack();
@@ -110,13 +109,9 @@ class Game extends React.Component {
         this.changeCurrentHint(null);
         break;
       default:  // a letter from A-Z
-        if (this.state.currentLetterPos.col > 4) {
-          break;
-        }
-
         this.changeCurrentLetter(key);
         this.changeCurrentHint(hintEnum.NOT_IN_WORD);
-        this.moveKeyboardCursor(this.state.currentLetterPos.row, this.state.currentLetterPos.col + 1);
+        this.moveKeyboardCursorForward();
         break;
     }
   }
