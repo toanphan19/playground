@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import React from "react";
 
 import { hintEnum } from "../../components/wordle/common";
@@ -8,6 +9,11 @@ import Guesser from "../../components/wordle/guesser";
 export default function Wordle() {
   return (
     <div className="container">
+      <Head>
+        <title>Wordle Solver</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <h1 style={{ marginTop: 16, marginBottom: 32 }}>Wordle Solver</h1>
       <Game />
     </div >
